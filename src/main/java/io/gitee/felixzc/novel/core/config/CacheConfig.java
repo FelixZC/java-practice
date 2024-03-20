@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.gitee.felixzc.novel.core.common.constant.CacheConsts;
+import io.gitee.felixzc.novel.core.constant.CacheConsts;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.SimpleCacheManager;
