@@ -1,4 +1,4 @@
-package io.gitee.felixzc.novel.core.common.constant;
+package io.gitee.felixzc.novel.core.constant;
 
 /**
  * API 路由常量

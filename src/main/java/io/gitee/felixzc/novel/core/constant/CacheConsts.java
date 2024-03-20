@@ -1,4 +1,4 @@
-package io.gitee.felixzc.novel.core.common.constant;
+package io.gitee.felixzc.novel.core.constant;
 
 /**
  * 缓存相关常量
