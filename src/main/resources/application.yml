@@ -13,6 +13,7 @@ novel:
       - http://localhost:8080
 --- #---------------------数据库配置---------------------------
 spring:
+  # MySql配置
   datasource:
     url: jdbc:mysql://localhost:3306/novel?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
@@ -23,3 +24,36 @@ spring:
       host: 127.0.0.1
       port: 6379
       password:
+--- #---------------------elasticsearch配置---------------------------
+elasticsearch:
+  uris:
+    - http://localhost:9200
+  username: elastic
+  password: +Wc*XAM0oh1KWYA9yGHW
+--- #---------------------RabbitMQ配置---------------------------
+rabbitmq:
+  addresses: "amqp://guest:guest@127.0.0.1"
+  virtual-host: novel
+  template:
+    retry:
+      # 开启重试
+      enabled: true
+      # 最大重试次数
+      max-attempts: 3
+      # 第一次和第二次重试之间的持续时间
+      initial-interval: "3s"
+--- #---------------------XXL-JOB 配置---------------------------
+xxl:
+  job:
+    admin:
+      ### 调度中心部署根地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    executor:
+      ### 执行器AppName [选填]：执行器心跳注册分组依据；为空则关闭自动注册
+      appname: xxl-job-executor-novel
+      ### 执行器运行日志文件存储磁盘路径 [选填] ：需要对该路径拥有读写权限；为空则使用默认路径；
+      logpath: logs/xxl-job/jobhandler
+    ### xxl-job, access token
+    accessToken: 123
+
+
