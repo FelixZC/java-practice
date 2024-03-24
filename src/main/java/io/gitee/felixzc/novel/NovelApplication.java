@@ -9,12 +9,14 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 
 import java.util.Map;
 
 @SpringBootApplication
 @MapperScan("io.gitee.felixzc.novel.dao.mapper")
 @EnableCaching
+@EnableOpenApi
 @Slf4j
 public class NovelApplication {
 
