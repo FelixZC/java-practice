@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 /**
  * <p>
  * 小说推荐
- * </p>
- */
+ * </p> */
 @TableName("home_book")
 public class HomeBook implements Serializable {
 

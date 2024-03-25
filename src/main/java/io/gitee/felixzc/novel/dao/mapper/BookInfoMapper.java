@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * <p>
  * 小说信息 Mapper 接口
- * </p>
- */
+ * </p> */
 public interface BookInfoMapper extends BaseMapper<BookInfo> {
 
     /**
@@ -28,7 +27,7 @@ public interface BookInfoMapper extends BaseMapper<BookInfo> {
      * @param page mybatis-plus 分页对象
      * @param condition 搜索条件
      * @return 返回结果
-     * */
+     */
     List<BookInfo> searchBooks(IPage<BookInfoRespDto> page, BookSearchReqDto condition);
 
 }
