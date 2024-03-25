@@ -8,27 +8,27 @@ public class CommonConsts {
 
     /**
      * 是
-     * */
+     */
     public static final Integer YES = 1;
 
     /**
      * 否
-     * */
+     */
     public static final Integer NO = 0;
 
     /**
      * 性别常量
-     * */
+     */
     public enum SexEnum{
 
         /**
          * 男
-         * */
+         */
         MALE(0,"男"),
 
         /**
          * 女
-         * */
+         */
         FEMALE(1,"女");
 
         SexEnum(int code,String desc){

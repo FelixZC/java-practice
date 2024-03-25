@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * elasticsearch 相关配置
+ * elasticsearch 相关配置 
  */
 @Configuration
 public class EsConfig {
