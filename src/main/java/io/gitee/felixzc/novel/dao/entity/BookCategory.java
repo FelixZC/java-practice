@@ -8,10 +8,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 小说推荐
+ * <p>
+ * 小说类别
+ * </p>
  */
-@TableName("home_book")
-public class HomeBook implements Serializable {
+@TableName("book_category")
+public class BookCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,19 +21,19 @@ public class HomeBook implements Serializable {
     private Long id;
 
     /**
-     * 推荐类型;0-轮播图 1-顶部栏 2-本周强推 3-热门推荐 4-精品推荐
+     * 作品方向;0-男频 1-女频
      */
-    private Integer type;
+    private Integer workDirection;
 
     /**
-     * 推荐排序
+     * 类别名
+     */
+    private String name;
+
+    /**
+     * 排序
      */
     private Integer sort;
-
-    /**
-     * 推荐小说ID
-     */
-    private Long bookId;
 
     /**
      * 创建时间
@@ -52,12 +54,20 @@ public class HomeBook implements Serializable {
         this.id = id;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getWorkDirection() {
+        return workDirection;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setWorkDirection(Integer workDirection) {
+        this.workDirection = workDirection;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getSort() {
@@ -66,14 +76,6 @@ public class HomeBook implements Serializable {
 
     public void setSort(Integer sort) {
         this.sort = sort;
-    }
-
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -94,13 +96,13 @@ public class HomeBook implements Serializable {
 
     @Override
     public String toString() {
-        return "HomeBook{" +
-        "id=" + id +
-        ", type=" + type +
-        ", sort=" + sort +
-        ", bookId=" + bookId +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        "}";
+        return "BookCategory{" +
+                "id=" + id +
+                ", workDirection=" + workDirection +
+                ", name=" + name +
+                ", sort=" + sort +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                "}";
     }
 }

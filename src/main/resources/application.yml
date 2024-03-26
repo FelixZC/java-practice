@@ -27,6 +27,10 @@ spring:
       host: 127.0.0.1
       port: 6379
       password:
+  # Spring AMQP 配置
+  amqp:
+    # 是否开启 Spring AMQP：true-开启 false-不开启
+    enabled: false
 --- #---------------------elasticsearch配置---------------------------
 elasticsearch:
   uris:

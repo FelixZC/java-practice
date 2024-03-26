@@ -8,9 +8,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
  * 小说信息
- * </p> */
+ */
 @TableName("book_info")
 public class BookInfo implements Serializable {
 

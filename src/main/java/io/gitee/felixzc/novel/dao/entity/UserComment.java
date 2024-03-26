@@ -8,30 +8,45 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 小说推荐
+ * <p>
+ * 用户评论
+ * </p>
  */
-@TableName("home_book")
-public class HomeBook implements Serializable {
+@TableName("user_comment")
+public class UserComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 推荐类型;0-轮播图 1-顶部栏 2-本周强推 3-热门推荐 4-精品推荐
+     * 评论用户ID
      */
-    private Integer type;
+    private Long userId;
 
     /**
-     * 推荐排序
-     */
-    private Integer sort;
-
-    /**
-     * 推荐小说ID
+     * 评论小说ID
      */
     private Long bookId;
+
+    /**
+     * 评价内容
+     */
+    private String commentContent;
+
+    /**
+     * 回复数量
+     */
+    private Integer replyCount;
+
+    /**
+     * 审核状态;0-待审核 1-审核通过 2-审核不通过
+     */
+    private Integer auditStatus;
 
     /**
      * 创建时间
@@ -52,20 +67,12 @@ public class HomeBook implements Serializable {
         this.id = id;
     }
 
-    public Integer getType() {
-        return type;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getBookId() {
@@ -74,6 +81,30 @@ public class HomeBook implements Serializable {
 
     public void setBookId(Long bookId) {
         this.bookId = bookId;
+    }
+
+    public String getCommentContent() {
+        return commentContent;
+    }
+
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
+    }
+
+    public Integer getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(Integer replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public Integer getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(Integer auditStatus) {
+        this.auditStatus = auditStatus;
     }
 
     public LocalDateTime getCreateTime() {
@@ -94,11 +125,13 @@ public class HomeBook implements Serializable {
 
     @Override
     public String toString() {
-        return "HomeBook{" +
+        return "UserComment{" +
         "id=" + id +
-        ", type=" + type +
-        ", sort=" + sort +
+        ", userId=" + userId +
         ", bookId=" + bookId +
+        ", commentContent=" + commentContent +
+        ", replyCount=" + replyCount +
+        ", auditStatus=" + auditStatus +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
         "}";
