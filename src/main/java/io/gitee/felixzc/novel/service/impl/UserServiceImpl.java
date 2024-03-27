@@ -1,16 +1,23 @@
 package io.gitee.felixzc.novel.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.gitee.felixzc.novel.core.common.constant.CommonConsts;
 import io.gitee.felixzc.novel.core.common.constant.ErrorCodeEnum;
 import io.gitee.felixzc.novel.core.common.exception.BusinessException;
 import io.gitee.felixzc.novel.core.common.resp.RestResp;
 import io.gitee.felixzc.novel.core.constant.DatabaseConsts;
 import io.gitee.felixzc.novel.core.constant.SystemConfigConsts;
 import io.gitee.felixzc.novel.core.util.JwtUtils;
+import io.gitee.felixzc.novel.dao.entity.UserBookshelf;
+import io.gitee.felixzc.novel.dao.entity.UserFeedback;
 import io.gitee.felixzc.novel.dao.entity.UserInfo;
+import io.gitee.felixzc.novel.dao.mapper.UserBookshelfMapper;
+import io.gitee.felixzc.novel.dao.mapper.UserFeedbackMapper;
 import io.gitee.felixzc.novel.dao.mapper.UserInfoMapper;
+import io.gitee.felixzc.novel.dto.req.UserInfoUptReqDto;
 import io.gitee.felixzc.novel.dto.req.UserLoginReqDto;
 import io.gitee.felixzc.novel.dto.req.UserRegisterReqDto;
+import io.gitee.felixzc.novel.dto.resp.UserInfoRespDto;
 import io.gitee.felixzc.novel.dto.resp.UserLoginRespDto;
 import io.gitee.felixzc.novel.dto.resp.UserRegisterRespDto;
 import io.gitee.felixzc.novel.manager.redis.VerifyCodeManager;
@@ -24,13 +31,21 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * 会员模块 服务实现类
+ *
+ */
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
+
     private final UserInfoMapper userInfoMapper;
 
     private final VerifyCodeManager verifyCodeManager;
+
+    private final UserFeedbackMapper userFeedbackMapper;
+
+    private final UserBookshelfMapper userBookshelfMapper;
 
     private final JwtUtils jwtUtils;
 
@@ -53,7 +68,8 @@ public class UserServiceImpl implements UserService {
 
         // 注册成功，保存用户信息
         UserInfo userInfo = new UserInfo();
-        userInfo.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes(StandardCharsets.UTF_8)));
+        userInfo.setPassword(
+                DigestUtils.md5DigestAsHex(dto.getPassword().getBytes(StandardCharsets.UTF_8)));
         userInfo.setUsername(dto.getUsername());
         userInfo.setNickName(dto.getUsername());
         userInfo.setCreateTime(LocalDateTime.now());
@@ -100,4 +116,56 @@ public class UserServiceImpl implements UserService {
                 .nickName(userInfo.getNickName()).build());
     }
 
+    @Override
+    public RestResp<Void> saveFeedback(Long userId, String content) {
+        UserFeedback userFeedback = new UserFeedback();
+        userFeedback.setUserId(userId);
+        userFeedback.setContent(content);
+        userFeedback.setCreateTime(LocalDateTime.now());
+        userFeedback.setUpdateTime(LocalDateTime.now());
+        userFeedbackMapper.insert(userFeedback);
+        return RestResp.ok();
+    }
+
+    @Override
+    public RestResp<Void> updateUserInfo(UserInfoUptReqDto dto) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(dto.getUserId());
+        userInfo.setNickName(dto.getNickName());
+        userInfo.setUserPhoto(dto.getUserPhoto());
+        userInfo.setUserSex(dto.getUserSex());
+        userInfoMapper.updateById(userInfo);
+        return RestResp.ok();
+    }
+
+    @Override
+    public RestResp<Void> deleteFeedback(Long userId, Long id) {
+        QueryWrapper<UserFeedback> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(DatabaseConsts.CommonColumnEnum.ID.getName(), id)
+                .eq(DatabaseConsts.UserFeedBackTable.COLUMN_USER_ID, userId);
+        userFeedbackMapper.delete(queryWrapper);
+        return RestResp.ok();
+    }
+
+    @Override
+    public RestResp<Integer> getBookshelfStatus(Long userId, String bookId) {
+        QueryWrapper<UserBookshelf> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(DatabaseConsts.UserBookshelfTable.COLUMN_USER_ID, userId)
+                .eq(DatabaseConsts.UserBookshelfTable.COLUMN_BOOK_ID, bookId);
+        return RestResp.ok(
+                userBookshelfMapper.selectCount(queryWrapper) > 0
+                        ? CommonConsts.YES
+                        : CommonConsts.NO
+        );
+    }
+
+    @Override
+    public RestResp<UserInfoRespDto> getUserInfo(Long userId) {
+        UserInfo userInfo = userInfoMapper.selectById(userId);
+        return RestResp.ok(UserInfoRespDto.builder()
+                .nickName(userInfo.getNickName())
+                .userSex(userInfo.getUserSex())
+                .userPhoto(userInfo.getUserPhoto())
+                .build());
+    }
 }

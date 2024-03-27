@@ -11,9 +11,14 @@ novel:
     allow-origins:
       - http://localhost:1024
       - http://localhost:8080
-  # JWT 密钥
+  # JWT密钥
   jwt:
     secret: E66559580A1ADF48CDD928516062F12E
+  file:
+    # 文件上传配置
+    upload:
+      # 上传路径
+      path: /Users/ZC/upload
 --- #---------------------数据库配置---------------------------
 spring:
   # MySql配置
