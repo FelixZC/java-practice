@@ -77,4 +77,29 @@ xxl:
     ### xxl-job, access token
     accessToken: 123
 
+--- #----------------------邮箱配置-----------------------------
+#邮箱服务器
+spring:
+  mail:
+    host: smtp.163.com
+    #发件人昵称
+    nickname: pzc
+    #邮箱账户
+    username: xxx@163.com
+    #邮箱第三方授权码
+    password: xxx
+    #编码类型
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
 
